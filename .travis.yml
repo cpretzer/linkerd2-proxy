@@ -10,6 +10,7 @@ env:
 branches:
   only:
     - master
+    - ver/debug-symbols
 
 jobs:
   include:
@@ -18,7 +19,7 @@ jobs:
       install: rustup component add rustfmt
       script:
         - make check-fmt
-        - make test
+        - travis_wait make test
       rust: stable
 
     # On master, package an artifact and run tests in release mode before
