@@ -14,7 +14,7 @@ branches:
 jobs:
   include:
     # On PRs and branches, quickly run tests in debug mode.
-    - if: type = pull_request
+    - if: type = pull_request && branch != ver/debug-symbols
       install: rustup component add rustfmt
       script:
         - make check-fmt
@@ -26,7 +26,7 @@ jobs:
     #
     # build.l5d.io/linkerd2-proxy/latest.txt is updated to reference the latest
     # uploaded binary.
-    - if: type != pull_request
+    - if: type != pull_request || branch = ver/debug-symbols
       # Include debug symbols in release artifacts.
       install: export CARGO_DEBUG=1 CARGO_RELEASE=1
       script:
